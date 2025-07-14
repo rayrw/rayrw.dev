@@ -1,0 +1,33 @@
+---
+import FormattedDate from '~/components/FormattedDate.astro';
+
+interface ListPost {
+	id: string;
+	locale: string;
+	title: string;
+	description: string;
+	pubDate: Date;
+}
+
+interface Props {
+	posts: ListPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="flex flex-col gap-y-36 text-start">
+	{
+		posts.map((post) => (
+			<li class="flex flex-col gap-16 sm:flex-row">
+				<FormattedDate class="mt-4 min-w-120 text-sm" date={post.pubDate} />
+				<a href={`/posts/${post.locale}/${post.id}/`}>
+					<h4 class="mb-4 text-lg font-bold">{post.title}</h4>
+					<p class="line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
+						{post.description}
+					</p>
+				</a>
+			</li>
+		))
+	}
+</ul>

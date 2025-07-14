@@ -1,0 +1,37 @@
+---
+import PageSection from './PageSection.astro';
+import FormattedReadingTime from './FormattedReadingTime.astro';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '~/common/date';
+
+type _Props = CollectionEntry<'posts'>['data'];
+
+interface Props extends _Props {
+	minutesRead: number;
+}
+
+const { title, description, pubDate, minutesRead, heroImage } = Astro.props;
+
+const { locale } = Astro.params;
+
+const formattedDate = formatDate(pubDate, locale);
+---
+
+<PageSection>
+	<div class="flex flex-col items-center gap-4">
+		<div class="px-56 pt-24 pb-12 text-center">
+			<h1 class="text-4xl font-bold">{title}</h1>
+		</div>
+		<p class="text-center text-sm text-gray-600 dark:text-gray-300">
+			{description}
+		</p>
+		<div class="text-sm">
+			<span id="publish-date">{formattedDate}</span> - <FormattedReadingTime
+				id="reading-time"
+				minutes={minutesRead}
+			/>
+		</div>
+
+		{heroImage ? <img src={heroImage.src} alt="" class="mt-24" /> : null}
+	</div>
+</PageSection>

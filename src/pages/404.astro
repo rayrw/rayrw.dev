@@ -1,0 +1,13 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '~/common/consts';
+import Layout from '~/layouts/Layout.astro';
+import PageSection from '~/components/PageSection.astro';
+---
+
+<Layout head={{ title: SITE_TITLE, description: SITE_DESCRIPTION }}>
+	<PageSection>
+		<p class="mb-16">The page you requested cannot be found.</p>
+
+		<a href="/" class="underline">Home page →</a>
+	</PageSection>
+</Layout>

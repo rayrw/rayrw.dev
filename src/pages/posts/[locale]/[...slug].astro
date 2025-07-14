@@ -1,0 +1,42 @@
+---
+import { SITE_TITLE } from '~/common/consts';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import Layout from '~/layouts/Layout.astro';
+import Connect from '~/components/Connect.astro';
+import PostHeader from '~/components/PostHeader.astro';
+import PostContent from '~/components/PostContent.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts');
+	return posts.map((post) => {
+		const [locale, ...slug] = post.id.split('/');
+		return {
+			params: { locale, slug: slug.join('/') || undefined },
+			props: post,
+		};
+	});
+}
+
+type Props = CollectionEntry<'posts'>;
+
+const post = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+
+<Layout
+	head={{
+		title: [post.data.title, SITE_TITLE].join(' | '),
+		description: post.data.description,
+	}}
+>
+	<div class="mx-auto w-full max-w-screen-md">
+		<PostHeader
+			{...post.data}
+			minutesRead={remarkPluginFrontmatter.minutesRead}
+		/>
+		<PostContent><Content /></PostContent>
+	</div>
+
+	<Connect class:list={['mb-80']} center />
+</Layout>

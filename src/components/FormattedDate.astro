@@ -1,0 +1,17 @@
+---
+import { formatDate } from '~/common/date';
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+	date: Date;
+}
+
+const { date } = Astro.props;
+
+const { locale } = Astro.params;
+
+const formattedDate = formatDate(date, locale);
+---
+
+<time class={Astro.props.class} datetime={date.toISOString()}>
+	{formattedDate}
+</time>

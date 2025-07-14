@@ -1,0 +1,34 @@
+---
+import { SITE_DEFAULT_LOCALE } from '~/common/consts';
+import BaseHead from '~/components/BaseHead.astro';
+import Header from '~/components/Header.astro';
+import '~/common/global.css';
+
+export interface Props {
+	head: {
+		title: string;
+		description: string;
+	};
+}
+
+const { locale } = Astro.params;
+
+const {
+	head: { title, description },
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang={locale ?? SITE_DEFAULT_LOCALE}>
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<main
+			class="flex min-h-screen flex-col bg-stone-100 font-mono text-gray-950 dark:bg-stone-900 dark:text-white"
+		>
+			<Header />
+			<slot />
+		</main>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/Layout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '~/common/consts';
+import MultiLingualPostList from '~/components/MultiLingualPostList.astro';
+import PageSection from '~/components/PageSection.astro';
+
+const posts = (await getCollection('posts'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map(({ id, data: { title, description, pubDate } }) => {
+		const [locale, ...slug] = id.split('/');
+		return {
+			id: slug.join('/'),
+			locale,
+			title,
+			description,
+			pubDate,
+		};
+	});
+---
+
+<Layout head={{ title: SITE_TITLE, description: SITE_DESCRIPTION }}>
+	<PageSection>
+		<MultiLingualPostList posts={posts} />
+	</PageSection>
+</Layout>

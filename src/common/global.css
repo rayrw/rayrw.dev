@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+	--font-mono:
+		'DejaVu Mono', 'Noto Sans JP Variable', ui-monospace, SFMono-Regular, Menlo,
+		Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	--spacing: 0.0625rem;
+}
+
+/* dejavu-mono-latin-400-normal */
+@font-face {
+	font-family: 'DejaVu Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400;
+	src:
+		url(/fonts/dejavu-mono-latin-400-normal.woff2) format('woff2'),
+		url(/fonts/dejavu-mono-latin-400-normal.woff) format('woff');
+}
+
+/* dejavu-mono-latin-700-normal */
+@font-face {
+	font-family: 'DejaVu Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 700;
+	src:
+		url(/fonts/dejavu-mono-latin-700-normal.woff2) format('woff2'),
+		url(/fonts/dejavu-mono-latin-700-normal.woff) format('woff');
+}
+
+/* noto-sans-jp-japanese-400-normal */
+@font-face {
+	font-family: 'Noto Sans JP Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400;
+	src: url(/fonts/noto-sans-jp-japanese-400-normal.woff2)
+		format('woff2-variations');
+}
+
+/* noto-sans-jp-japanese-700-normal */
+@font-face {
+	font-family: 'Noto Sans JP Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 700;
+	src: url(/fonts/noto-sans-jp-japanese-700-normal.woff2)
+		format('woff2-variations');
+}

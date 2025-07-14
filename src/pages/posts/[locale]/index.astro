@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_LOCALES } from '~/common/consts';
+import Layout from '~/layouts/Layout.astro';
+import PostList from '~/components/PostList.astro';
+import PageSection from '~/components/PageSection.astro';
+
+const { locale } = Astro.params;
+
+const posts = (await getCollection('posts'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map(({ id, data: { title, description, pubDate } }) => {
+		const [locale, ...slug] = id.split('/');
+		return {
+			id: slug.join('/'),
+			locale,
+			title,
+			description,
+			pubDate,
+		};
+	})
+	.filter((post) => post.locale === locale);
+
+export async function getStaticPaths() {
+	return SITE_LOCALES.map((locale) => {
+		return {
+			params: { locale },
+		};
+	});
+}
+---
+
+<Layout head={{ title: SITE_TITLE, description: SITE_DESCRIPTION }}>
+	<PageSection>
+		<PostList posts={posts} />
+	</PageSection>
+</Layout>

@@ -1,0 +1,31 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+	minutes: number;
+}
+
+const { minutes, ...restProps } = Astro.props;
+
+const { locale } = Astro.params;
+
+const LESS_THAN_ONE_MINUTE = {
+	en: 'Less than a minute read',
+	ja: '1分未満で読めます',
+};
+---
+
+<span {...restProps}>
+	{
+		locale === 'ja'
+			? Math.trunc(minutes) === 0
+				? LESS_THAN_ONE_MINUTE.ja
+				: `約${Math.round(minutes)}分で読めます`
+			: ''
+	}
+	{
+		locale === 'en'
+			? Math.trunc(minutes) === 0
+				? LESS_THAN_ONE_MINUTE.en
+				: `${Math.round(minutes)} min read`
+			: ''
+	}
+</span>

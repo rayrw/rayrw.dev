@@ -1,0 +1,53 @@
+---
+import FormattedDate from '~/components/FormattedDate.astro';
+
+interface ListPost {
+	id: string;
+	locale: string;
+	title: string;
+	description: string;
+	pubDate: Date;
+}
+
+interface Props {
+	posts: ListPost[];
+}
+
+const { posts } = Astro.props;
+
+const allPostIds = Array.from(new Set(posts.map((post) => post.id)));
+const aggregatedPosts = Object.groupBy(posts, (post) => post.id);
+---
+
+<ul class="flex flex-col gap-y-36 text-start">
+	{
+		allPostIds.map((postId) => {
+			const posts = aggregatedPosts[postId];
+
+			if (!posts) {
+				return null;
+			}
+
+			return (
+				<li class="flex flex-col gap-16 sm:flex-row">
+					<div class="flex flex-col">
+						<FormattedDate
+							class="mt-4 min-w-120 text-sm"
+							date={posts[0].pubDate}
+						/>
+					</div>
+					<div class="flex flex-col gap-8">
+						{posts.map((post) => (
+							<a href={`/posts/${post.locale}/${post.id}/`}>
+								<h4 class="mb-4 text-lg font-bold">{post.title}</h4>
+								<p class="line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
+									{post.description}
+								</p>
+							</a>
+						))}
+					</div>
+				</li>
+			);
+		})
+	}
+</ul>
