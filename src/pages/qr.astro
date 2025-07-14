@@ -1,0 +1,23 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '~/common/consts';
+import PageSection from '~/components/PageSection.astro';
+import qrCode from '~/assets/qrcode.png';
+
+const greeting = {
+	en: 'Nice to meet you!',
+	ja: 'よろしくお願いします。',
+};
+---
+
+<Layout head={{ title: SITE_TITLE, description: SITE_DESCRIPTION }}>
+	<PageSection>
+		<div class="mt-96 flex flex-col items-center justify-center gap-24">
+			<img src={qrCode.src} alt="QRCode linking to my personal website" />
+			<div class="flex flex-col gap-8 text-center">
+				<span>{greeting.en}</span>
+				<span>{greeting.ja}</span>
+			</div>
+		</div>
+	</PageSection>
+</Layout>
