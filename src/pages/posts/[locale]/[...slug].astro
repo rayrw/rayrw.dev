@@ -27,6 +27,7 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 <Layout
 	head={{
 		title: [post.data.title, SITE_TITLE].join(' | '),
+		ogTitle: post.data.title,
 		description: post.data.description,
 	}}
 >
