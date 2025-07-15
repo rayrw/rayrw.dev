@@ -24,10 +24,10 @@ const {
 	<head>
 		<BaseHead title={title} ogTitle={ogTitle} description={description} />
 	</head>
-	<body>
-		<main
-			class="flex min-h-screen flex-col bg-stone-100 font-mono text-gray-950 dark:bg-stone-900 dark:text-white"
-		>
+	<body
+		class="bg-stone-100 font-mono text-gray-950 dark:bg-stone-900 dark:text-white"
+	>
+		<main class="flex min-h-screen flex-col">
 			<Header />
 			<slot />
 		</main>
