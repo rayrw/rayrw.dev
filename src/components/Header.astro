@@ -70,13 +70,19 @@ import PageSection from './PageSection.astro';
 			document.documentElement.setAttribute('data-theme', 'dark');
 			document
 				.querySelector('meta[name="theme-color"]')
-				?.setAttribute('content', 'var(--color-stone-900)');
+				?.setAttribute(
+					'content',
+					getComputedStyle(document.body).getPropertyValue('--color-stone-900'),
+				);
 			localStorage.setItem('theme', 'dark');
 		} else {
 			document.documentElement.setAttribute('data-theme', 'light');
 			document
 				.querySelector('meta[name="theme-color"]')
-				?.setAttribute('content', 'var(--color-stone-100)');
+				?.setAttribute(
+					'content',
+					getComputedStyle(document.body).getPropertyValue('--color-stone-100'),
+				);
 			localStorage.setItem('theme', 'light');
 		}
 	}
