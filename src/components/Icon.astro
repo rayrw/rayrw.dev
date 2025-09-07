@@ -1,0 +1,12 @@
+---
+import svgs from 'virtual:svg-ts';
+import type { SvgName } from 'virtual:svg-ts';
+
+interface Props {
+	name: SvgName;
+}
+
+const { name } = Astro.props;
+---
+
+<Fragment set:html={svgs[name]} />
