@@ -7,6 +7,7 @@ import { remarkReadingTime } from './src/common/remark';
 import { ogImage } from './src/common/og-image';
 
 import tailwindcss from '@tailwindcss/vite';
+import svgTs from 'vite-plugin-svg-ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,6 +31,12 @@ export default defineConfig({
 	},
 
 	vite: {
-		plugins: [tailwindcss()],
+		plugins: [
+			tailwindcss(),
+			svgTs({
+				svgFolderPath: './src/icons',
+				importQuery: '?raw',
+			}),
+		],
 	},
 });
